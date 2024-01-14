@@ -1,0 +1,88 @@
+entry: gh-start
+executions:
+  - src:
+      node: gh-checkout
+      port: exec
+    dst:
+      node: run-v1-cranberry-blackberry-dolphin
+      port: exec
+  - src:
+      node: run-v1-cranberry-blackberry-dolphin
+      port: exec-success
+    dst:
+      node: run-v1-squirrel-kangaroo-grape
+      port: exec
+  - src:
+      node: run-v1-squirrel-kangaroo-grape
+      port: exec-success
+    dst:
+      node: run-v1-rabbit-giraffe-blueberry
+      port: exec
+  - src:
+      node: gh-start
+      port: exec-on-push
+    dst:
+      node: gh-actions-setup-node-peach-tiger-banana
+      port: exec
+  - src:
+      node: gh-actions-setup-node-peach-tiger-banana
+      port: exec
+    dst:
+      node: gh-checkout
+      port: exec
+connections: []
+nodes:
+  - id: gh-start
+    type: gh-start@v1
+    position:
+      x: 10
+      y: 10
+    settings:
+      folded: false
+  - id: gh-checkout
+    type: github.com/actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11
+    position:
+      x: 680
+      y: 970
+    inputs:
+      fetch-depth: '0'
+    settings:
+      folded: false
+  - id: run-v1-cranberry-blackberry-dolphin
+    type: run@v1
+    position:
+      x: 1080
+      y: 880
+    inputs:
+      script: npm ci
+    settings:
+      folded: false
+  - id: run-v1-squirrel-kangaroo-grape
+    type: run@v1
+    position:
+      x: 1370
+      y: 790
+    inputs:
+      script: npm run lint
+    settings:
+      folded: false
+  - id: run-v1-rabbit-giraffe-blueberry
+    type: run@v1
+    position:
+      x: 1670
+      y: 690
+    inputs:
+      script: npm run test
+    settings:
+      folded: false
+  - id: gh-actions-setup-node-peach-tiger-banana
+    type: github.com/actions/setup-node@b39b52d1213e96004bfcb1c61a8a6fa8ab84f3e8
+    position:
+      x: 290
+      y: 900
+    inputs:
+      node-version: 20.x
+    settings:
+      folded: false
+registries: []
+description: ''
